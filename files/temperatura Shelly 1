@@ -207,7 +207,7 @@
     {
         "id": "9cf8af75.dedfd",
         "type": "influxdb",
-        "hostname": "192.168.1.253",
+        "hostname": "localhost",
         "port": "8086",
         "protocol": "http",
         "database": "Cuba_001",
