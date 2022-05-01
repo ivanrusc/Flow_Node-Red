@@ -1,0 +1,221 @@
+[
+    {
+        "id": "53cb034af9a01fb4",
+        "type": "inject",
+        "z": "284de3568ecd2119",
+        "name": "Shelly-1_temperatura",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "60",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 40,
+        "wires": [
+            [
+                "679ffdf552ba2377"
+            ]
+        ]
+    },
+    {
+        "id": "679ffdf552ba2377",
+        "type": "http request",
+        "z": "284de3568ecd2119",
+        "name": "",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "http://192.168.1.170/status",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "basic",
+        "senderr": false,
+        "x": 170,
+        "y": 140,
+        "wires": [
+            [
+                "3e41d2487d854ef0",
+                "896b3910fcd5f222",
+                "37619ae33fbcaae0",
+                "248d4095b4801171"
+            ]
+        ]
+    },
+    {
+        "id": "3e41d2487d854ef0",
+        "type": "debug",
+        "z": "284de3568ecd2119",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 410,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "18b68fabf6cb4818",
+        "type": "influxdb out",
+        "z": "284de3568ecd2119",
+        "influxdb": "9cf8af75.dedfd",
+        "name": "1_temperatura_1",
+        "measurement": "1_temperatura_1",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "organisation",
+        "bucket": "bucket",
+        "x": 430,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "a2b692b92195ea7a",
+        "type": "influxdb out",
+        "z": "284de3568ecd2119",
+        "influxdb": "9cf8af75.dedfd",
+        "name": "1_temperatura_2",
+        "measurement": "1_temperatura_2",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "organisation",
+        "bucket": "bucket",
+        "x": 430,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "896b3910fcd5f222",
+        "type": "change",
+        "z": "284de3568ecd2119",
+        "name": "Temperatura-1",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.ext_temperature[\"0\"].tC",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 140,
+        "y": 240,
+        "wires": [
+            [
+                "18b68fabf6cb4818"
+            ]
+        ]
+    },
+    {
+        "id": "e71f949b64cdab67",
+        "type": "influxdb out",
+        "z": "284de3568ecd2119",
+        "influxdb": "9cf8af75.dedfd",
+        "name": "1_temperatura_3",
+        "measurement": "1_temperatura_3",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "organisation",
+        "bucket": "bucket",
+        "x": 430,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "37619ae33fbcaae0",
+        "type": "change",
+        "z": "284de3568ecd2119",
+        "name": "Temperatura-2",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.ext_temperature[\"1\"].tC",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 140,
+        "y": 280,
+        "wires": [
+            [
+                "a2b692b92195ea7a"
+            ]
+        ]
+    },
+    {
+        "id": "248d4095b4801171",
+        "type": "change",
+        "z": "284de3568ecd2119",
+        "name": "Temperatura-3",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.ext_temperature[\"2\"].tC",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 140,
+        "y": 320,
+        "wires": [
+            [
+                "e71f949b64cdab67"
+            ]
+        ]
+    },
+    {
+        "id": "9cf8af75.dedfd",
+        "type": "influxdb",
+        "hostname": "192.168.1.253",
+        "port": "8086",
+        "protocol": "http",
+        "database": "Cuba_001",
+        "name": "prova_0001",
+        "usetls": false,
+        "tls": "",
+        "influxdbVersion": "1.x",
+        "url": "http://localhost:8086",
+        "rejectUnauthorized": true
+    }
+]
